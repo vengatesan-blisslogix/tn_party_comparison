@@ -1,0 +1,41 @@
+<%= form_for(@party_list) do |f| %>
+  <% if @party_list.errors.any? %>
+    <div align='center'>
+     
+
+      <ul>
+      <% @party_list.errors.full_messages.each do |message| %>
+        <font color="red"> <li><%= message %></li></font>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<table align="center"> 
+<tr>
+    <td >Party Name</td>
+    <td><%= f.text_field :name ,:class=>'select_box_vote'%> </td>
+  </tr>
+  <tr>
+    <td >Party Image</td>
+    <td><%= f.file_field :avatar %> <%if @edit and @edit.to_i==1%>
+      <%if @party_list.avatar.to_s != "/avatars/original/missing.png"%>
+      <%= image_tag @party_list.avatar, :size => "70x50", class: "icons"%>
+      
+      <%end%> 
+      <%end%></td>
+  </tr>
+  <tr>
+    <td >Comments</td>
+    <td><%= f.text_area :comments ,:class=>'select_box_vote' %> </td>
+  </tr>
+</table>
+  
+ <div class="actions" align="center">
+    <%if @edit and @edit.to_i==1%>    
+    <%#= f.submit %><input type="submit" name="commit" value="Update Party" class="button_blue_submit" style="width:200px;">
+    <%else%>
+    <input type="submit" name="commit" value="Create Party" class="button_blue_submit" style="width:200px;">
+    <%end%>
+  </div>
+<% end %>

@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+<hr>
+<div align="center"><font size="3" color="#FC8507"><b>Party Lists</b></font></div><hr>
+<%if session[:user] && session[:user]!=""%>
+<div align="right"><a href="/admins/logout" style="padding-right:60px;" ><font style="color:blue;">Logout</font></a></div>
+<%end%>
+<a href="/party_lists/new" style="padding-left:30px;"><font style="color:blue;">Add New Party</font></a>
+<a href="/candidates" style="padding-left:30px;"><font style="color:blue;">View Candidates</font></a></br>
+</br>
+<table align="center" border='1px' width="80%" class="table_view">
+  <thead>
+    <tr class="header_bg">
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Comments</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% 
+    i=1
+    @party_lists.each do |party_list| %>
+      <tr class="odd">
+        <td width="2%" align="center"><%= i %></td>
+        <td width="15%"><%= party_list.name %></td>
+        
+        <td width="10%" align="center"><%if party_list.avatar.to_s != "/avatars/original/missing.png"%>
+<%= image_tag party_list.avatar, :size => "100x80"%>
+<%else%>
+<img src="assets/question.jpg" alt="Missing" width="100" height="80">
+<%end%></td>    
+        <td width="35%" ><%= party_list.comments %></td>
+        <td width="5%" align="center" ><%= link_to 'Edit', edit_party_list_path(party_list) %></td>
+        <td width="5%" align="center" ><%= link_to 'Delete', party_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <%i=i+1 
+    end %>
+  </tbody>
+</table>
+
+<br>
+
+

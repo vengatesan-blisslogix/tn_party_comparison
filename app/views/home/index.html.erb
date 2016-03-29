@@ -1,0 +1,140 @@
+<!doctype html>  
+<head>
+<meta charset="UTF-8">
+<title>Tn voter</title>
+
+ <!--[if lt IE 9]>
+ <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+
+    </head>
+    <body>
+
+    <!--start container-->
+    <div id="container"><br/>
+<div align='center' ><font size="3"><b>VOTE 4 WHOM? AND WHY?</b></font></div>
+   <!--start holder-->
+   <a href="/"><font style="color:blue;">Home</font></a>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="return click_vote(this);"><font style="color:blue;">Go to your Constituency[தொகுதி]</font></a>
+   
+   <div class="holder_content1">
+   
+   <section class="group4">
+    <%if params[:dist_id] && params[:area_id]%>
+    District: <%=DistrictList.find(params[:dist_id]).name%> --> Constituency[தொகுதி]: <%=Area.find(params[:area_id]).name %> 
+    <%end%>
+<table><tr>
+  <%@select=0
+  (1..10).each do |a|%>
+  <%if params[:dist_id] && params[:area_id]
+     @link_value="/?cat_id=#{a}&dist_id=#{params[:dist_id]}&area_id=#{params[:area_id]}"
+    else
+     @link_value="/?cat_id=#{a}"
+    end
+
+if params[:cat_id] && params[:cat_id].to_i==a.to_i
+@select=1
+  @class_name="button_blue_select"
+else
+  @class_name="button_blue"
+end
+    %>
+<td><a href="<%=@link_value%>"><span class="<%=@class_name%>" id="cat_<%=a%>">Category <%=a%></span></a></td>
+
+<%end%>
+</tr></table>
+ <%if @select.to_i==0%>
+ <script>
+   
+            document.getElementById('cat_1').style.backgroundColor = "red";
+         
+</script>
+ <%end%>
+   </section>
+
+   </div>
+
+   <!--end holder-->
+
+   
+   <!--start holder-->
+
+   <div class="holder_content">
+
+   <%@count_no=4
+@no_no_rows_array = @candidate.size.to_i.divmod(@count_no.to_i)
+@no_no_rows = @no_no_rows_array[0].to_i
+if @no_no_rows_array[1].to_i!=0
+@no_no_rows = @no_no_rows+1
+end
+@candi_ids = ""
+  %>
+  <%@no_no_rows.times do |n|
+  if n==0
+  @candidate = Candidate.where("#{@query}").limit(@count_no).order('id asc')
+  else
+  @candidate = Candidate.where("id NOT IN (#{@candi_ids}) and #{@query}").limit(@count_no).order('id asc')
+  end
+  puts"--nnn---#{n}-------"
+  %>
+    <tr>
+      <%@candidate.each do |candidate|
+if @candi_ids !=""
+  @candi_ids = @candi_ids+','+candidate.id.to_s
+else
+  @candi_ids = candidate.id.to_s 
+end
+@party_leadig = PartyList.find_by_id(candidate.party_list_id)
+        %>
+            <td>
+            <section class="group1">
+               <div align="center"><font size="2" color="#FC8507"><b><%=@party_leadig.name%></b></font></div><hr>
+              <div style="width:200px;height:38px; overflow:auto;">
+             <font size="2"><b><%=candidate.name%></b></font></div>
+           
+<%if candidate.avatar.to_s != "/avatars/original/missing.png"%>
+<%= image_tag candidate.avatar, :size => "180x100", class: "icons"%>
+<%else%>
+<img class="icons" src="assets/question.jpg" alt="Missing" width="180" height="100">
+<%end%>
+
+            <div style="width:210px;height:180px; overflow:auto;">
+            <p>
+              <%if params[:cat_id]%>
+              <%get_decs_cat_value(params[:cat_id],candidate)%>       
+              
+              <%else%>
+              <%get_decs_cat_value(1,candidate)%>             
+              <%end%>
+              <ul style="list-style-type:square">
+              <% @desc_cat.split("\n").each do |t| %>
+  <li><%= t %><br></li>
+<% end %>
+         </ul>     
+            </p></div>
+            <div align="center" > <input type='button' onClick="return click_vote_candidate(this,<%=candidate.id%>);" value='Press to Vote' class="button"/></div><hr>
+            <%get_vote_count(candidate.id)
+
+            %>
+            <div align="center"><font size="3" ><b><%=@vote_count%></b></font></div>
+            <%if params[:dist_id] && params[:area_id]%>
+            <%else%>
+            <div align="center"><font size="3" color="#0273FC"><b>Leading: <%if @party_leadig!=nil and @party_leadig.leading_count.to_i!=0%><%=@party_leadig.leading_count%><%else%>0<%end%></b> </font></div>
+            <%end%>
+            </section>
+            </td>
+     <%end%>
+    </tr>
+     <%end%>
+
+
+   </div>
+   <!--end holder-->
+   
+   
+   </div>
+   <!--end container-->  
+   
+ 
+   </body></html>

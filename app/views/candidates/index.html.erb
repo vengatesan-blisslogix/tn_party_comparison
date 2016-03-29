@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<hr>
+<div align="center"><font size="3" color="#FC8507"><b>Candidates List</b></font></div><hr>
+<%if session[:user] && session[:user]!=""%>
+<div align="right"><a href="/admins/logout" style="padding-right:60px;" ><font style="color:blue;">Logout</font></a></div>
+<%end%>
+<a href="/candidates/new" style="padding-left:30px;"><font style="color:blue;">Add New Candidate</font></a>
+<a href="/party_lists" style="padding-left:30px;"><font style="color:blue;">View Party</font></a>
+</br>
+<table align="center"> 
+<tr>
+    <td >Select Party</td>
+    <td><%= select("candidate", "party_list_id", PartyList.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select Party'},:class=>'select_box_vote', :onchange=>"return select_party(this.value)")%> </td>
+  </tr>
+</table>
+</br>
+</br>
+<div id="update_candiate" align="center">
+
+</div>
+
+<script type="text/javascript">
+setTimeout(function(){ select_candidate_area(<%=PartyList.all[0].id%>,'candidate_party_list_id') }, 100);
+</script>
+
+<br>
+
+

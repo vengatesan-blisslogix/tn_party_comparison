@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @party_list.name %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @party_list.image %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @party_list.comments %>
+</p>
+
+<%= link_to 'Edit', edit_party_list_path(@party_list) %> |
+<%= link_to 'Back', party_lists_path %>

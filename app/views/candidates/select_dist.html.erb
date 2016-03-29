@@ -1,0 +1,43 @@
+	<%if params[:dist_id]%>
+
+
+	
+		<td >Select Constituency(தொகுதி): </td>
+		<td><select class="select_box_vote" id="area_id" name="candidate[area_id]"> 
+			<option value='0'>Select Constituency(தொகுதி)</option>
+         <%@area.each do |a|%>
+             <option value="<%=a.id%>"><%=a.name%></option>
+         <%end%>
+
+		</select>
+
+		</td>
+
+<%else%>
+<table align="center"> 
+
+	<tr>
+		<td >Select District: </td>
+		<td><%= select("area", "district_list_id", @dist.collect {|p| [ p.name, p.id ] }, {prompt: 'Select District'},:class=>'select_box_vote', :onchange=>"return select_area(this.value)") %> </td>
+	</tr>
+<tr id="area_update">
+<td >Select Constituency(தொகுதி): </td>
+		<td><select class="select_box_vote"> 
+			<option value='0'>Select Constituency(தொகுதி)</option>
+        </select>
+
+		</td>
+</tr>
+
+
+</table>
+
+</br>
+<div align="center">
+ <input type='button' onClick="return submit_area(this);" value='Submit' class="button_blue_submit"/>
+</div>
+</br>
+</br>
+<%end%>
+
+

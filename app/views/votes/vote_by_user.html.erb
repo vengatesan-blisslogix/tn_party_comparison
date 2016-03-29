@@ -1,0 +1,9 @@
+<%if @already_vote.to_i == 0%>
+<div align="center"><font size="3" color="red"><b>You have successfully Voted. Thanks for Voting !!!<br/></font><font size="3" color="blue">தங்களின் ஓட்டு ஏற்றுக்கொள்ளப்பட்டது. மிக்க நன்றி  !!!</b></div><hr>
+<div align="center">
+<img src='assets/voted.jpg'></div>
+<%else%>
+<div align="center"><font size="3" color="red"><b>You have already Voted. Don't put FAKE VOTE !!!<br/></font><font size="3" color="blue">கள்ள ஓட்டு போடாதிங்க !!!</b></div><hr>
+<div align="center">
+<img src='assets/fake.jpg'></div>
+<%end%>

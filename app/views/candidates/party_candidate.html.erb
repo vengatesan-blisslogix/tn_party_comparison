@@ -1,0 +1,35 @@
+<table border='1px' width="80%" class="table_view">
+  <thead>
+    <tr class="header_bg"> 
+<th>S.No</th>
+      <th>Name</th>
+           
+     <th>District</th> 
+     <th>Constituency(தொகுதி)</th>  
+      <th>Image</th>  
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%  i=1
+    @candidates.each do |candidate| %>
+      <tr class="odd">
+        <td width="2%" align="center"><%= i %></td>
+        <td width="15%"><%= candidate.name %></td>
+              
+        <td width="15%"><%if candidate.district_list_id.to_i!=0%><%= DistrictList.find(candidate.district_list_id).name %><%end%></td>
+        <td width="15%"><%if candidate.area_id.to_i!=0%><%= Area.find(candidate.area_id).name %><%end%></td>
+        <td width="15%" align="center"><%if candidate.avatar.to_s != "/avatars/original/missing.png"%>
+<%= image_tag candidate.avatar, :size => "70x50"%>
+<%else%>
+<img src="/assets/question.jpg" alt="Missing" width="70" height="50">
+<%end%></td>        
+        <td align="center" width="5%"><%= link_to 'Edit', edit_candidate_path(candidate) %></td>
+        <td align="center" width="5%"><%= link_to 'Delete', candidate, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% i=i+1
+    end %>
+  </tbody>
+</table>

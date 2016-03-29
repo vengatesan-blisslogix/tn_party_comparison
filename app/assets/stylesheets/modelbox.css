@@ -1,0 +1,106 @@
+.web_dialog_overlay
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: silver;
+    opacity: .25;
+    filter: alpha(opacity=15);
+    -moz-opacity: .15;
+    z-index: 1010101;
+    display: none;
+}
+.web_dialog
+{
+    display: none;
+    position: fixed;
+    width: 480px;
+    height: 250px;
+    top: 50%;
+    left: 50%;
+    margin-left: -190px;
+    margin-top: -100px;
+    background: #FFF no-repeat;
+    background-size: 100% 100%;
+    border: 2px solid #999;
+    padding: 0px;
+    z-index: 1010102;
+    font-family: Verdana;
+    font-size: 10pt;
+}
+
+.web_dialog2
+{
+    
+    position: fixed;
+    width: 220px;
+    height: auto;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    margin-left: -190px;
+    margin-top: -100px;
+    background: #FFF no-repeat;
+    background-size: 100% 100%;
+    border: 2px solid #999;
+    padding: 0px;
+    z-index: 1010102;
+    font-family: Verdana;
+    font-size: 10pt;
+    color: black;
+}
+
+.web_dialog1
+{
+    display: none;
+    position: fixed;
+    width: auto;
+    height: auto;
+    top: 22%;
+    left: 40%;
+    margin-left: -190px;
+    margin-top: -100px;
+    background: #FFF no-repeat;
+    background-size: 100% 100%;
+    border: 2px solid #999;
+    padding: 0px;
+    z-index: 1010102;
+    font-family: Verdana;
+    font-size: 10pt;
+}
+
+.web_dialog_title
+{
+    border-bottom: solid 2px #99bce8;
+    background-color: #336699;
+    padding: 4px;
+    color: White;
+    font-weight:bold;
+}
+.close_modelbox
+{
+    width:20px;height:20px;margin-top:6px;margin-left:6px;
+    background:url(cross.png) no-repeat transparent;
+    float:right;
+    cursor: pointer;
+    text-align:center;
+
+}
+
+.modelbox_title
+{
+    height:33px;
+    width:100%;
+    background:silver;
+    vertical-align:center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #04408c;
+    font-weight:bold;
+    font-size: 12pt;
+}

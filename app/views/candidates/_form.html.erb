@@ -1,0 +1,87 @@
+<%= form_for(@candidate) do |f| %>
+  <% if @candidate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@candidate.errors.count, "error") %> prohibited this candidate from being saved:</h2>
+
+      <ul>
+      <% @candidate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+
+
+ 
+ <table align="center"> 
+<tr>
+    <td ><%= f.label :party_list_id %></td>
+    <td><%= select("candidate", "party_list_id", PartyList.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select Party'},:class=>'select_box_vote')%> </td>
+  </tr>
+
+  <tr>
+    <td >Select District: </td>
+    <td><%= select("candidate", "district_list_id", DistrictList.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select District'},:class=>'select_box_vote', :onchange=>"return select_area(this.value)") %> </td>
+  </tr>
+
+<tr id="area_update">
+<td >Select Constituency(தொகுதி): </td>
+    <td><select class="select_box_vote"> 
+      <option value='0'>Select Constituency(தொகுதி)</option>
+        </select>
+
+    </td>
+</tr>
+
+<tr>
+    <td ><%= f.label :name %> </td>
+    <td><%= f.text_area :name ,:class=>'select_box_vote'%> </td>
+  </tr>
+  <tr>
+    <td >CM Candidate </td>
+    <td>
+      <%if @candidate.cm_candidate.to_i==1%>
+<input type="checkbox" id="cm_candidate" name="candidate[cm_candidate]" value="1"
+      onclick="return cm_candidate_yes(this.value)" checked/>
+      <%else%>
+         <input type="checkbox" id="cm_candidate" name="candidate[cm_candidate]" value="0"
+      onclick="return cm_candidate_yes(this.value)"/>
+      <%end%>
+       </td>
+  </tr>
+  <tr>
+    <td ><%= f.label :avatar %></td>
+    <td><%= f.file_field :avatar %> <%if @edit and @edit.to_i==1%>
+      <%if @candidate.avatar.to_s != "/avatars/original/missing.png"%>
+      <%= image_tag @candidate.avatar, :size => "70x50", class: "icons"%>
+      
+      <%end%> 
+      <%end%></td>
+  </tr>
+
+  <%(1..15).each do |c|
+    get_decs_cat_value(c,@candidate)%>
+    
+  <tr>
+  <td >Category <%=c%></td>
+    <td><textarea class="select_box_vote" name="candidate[x<%=c%>]" id="candidate_x<%=c%>" 
+     ><%=@desc_cat%></textarea> </td>
+</tr>
+<%end%>
+
+
+</table>
+  <div class="actions" align="center">
+    <%if @edit and @edit.to_i==1%>
+    <script>
+  select_area(<%=@candidate.district_list_id%>)
+  setTimeout(function(){ select_candidate_area(<%=@candidate.area_id%>,'area_id') }, 100);  
+  </script>
+    <%#= f.submit %><input type="submit" name="commit" value="Update Candidate" class="button_blue_submit" style="width:200px;">
+    <%else%>
+    <input type="submit" name="commit" value="Create Candidate" class="button_blue_submit" style="width:200px;">
+    <%end%>
+  </div>
+<% end %>

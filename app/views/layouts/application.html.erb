@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript">
+
+	 function HideDialogBox(val)
+  {
+    document.getElementById('overlay').style.display = "none";
+    document.getElementById('dialog').style.display = "none";
+    if (val==1)
+    {
+   //window.location='/'
+   location.reload();
+    }
+    
+  }
+function click_vote(obj,id)
+{
+var url= '/candidates/select_dist?party_id='+id;
+load_page(url,'Please select your Constituency(தொகுதி)',"margin-top:50px;height:auto;width:450px;margin-left:-85px;", "height:auto;width:auto;overflow:auto;", 'HideDialogBox(0)');  
+
+            
+
+}
+
+function select_area(val)
+{
+
+	var dist_id = val
+$('#area_update').load('/candidates/select_dist?dist_id='+dist_id);
+
+}
+function submit_area(obj)
+{
+	if (document.getElementById('area_district_list_id').value=="")
+	{
+alert("Please select your District.");
+return false;
+	}
+	if (document.getElementById('area_id').value=="0")
+	{
+alert("Please select your Constituency(தொகுதி).");
+return false;
+	}
+	var dist_id = document.getElementById('area_district_list_id').value
+	var area_id = document.getElementById('area_id').value
+	
+if (dist_id!="" && area_id!="0")	
+{
+window.location='/?dist_id='+dist_id+'&area_id='+area_id
+}
+}
+function click_vote_candidate(obj,id)
+{
+var url= '/votes/vote_by_user?candidate_id='+id;
+load_page(url,'Thanks for Voting',"margin-top:50px;height:auto;width:500px;margin-left:-85px;", "height:auto;width:auto;overflow:auto;", 'HideDialogBox(1)');   
+
+             
+
+}
+
+function select_party(val)
+{
+	var party_id = val
+$('#update_candiate').load('/candidates/party_candidate?party_id='+party_id);
+
+}
+function select_candidate_area(val,id)
+{
+
+	document.getElementById(id).value = val
+	if (id=='candidate_party_list_id')
+	{
+     select_party(val)
+	}
+
+}
+function cm_candidate_yes(val)
+{
+
+
+	if (val=='0')
+	{
+document.getElementById("cm_candidate").value = 1
+	}
+	else
+	{
+document.getElementById("cm_candidate").value = 0
+	}
+
+}
+
+	</script>
+  <title>TnVoting</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+<%= yield %>
+ 
+ 
+
+
+
+</body>
+</html>

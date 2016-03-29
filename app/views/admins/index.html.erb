@@ -1,0 +1,23 @@
+<hr>
+<div align="center"><font size="3" color="#FC8507"><b>Admin Login</b></font></div><hr>
+
+<div align="center"><font color="red"><%=session[:incorrect_login]%></font></div>
+<form  enctype="multipart/form-data" action="/admins/login" accept-charset="UTF-8" method="post">
+<table align="center"> 
+<tr>
+    <td >User Name</td>
+    <td>
+    	<input type="text" name="user_name" class="select_box_vote"/></td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+  <tr>
+    <td >Password</td>
+    <td><input type="password" name="password" class="select_box_vote"/></td>
+  </tr>
+   <tr><td>&nbsp;</td></tr>
+   <tr>
+    <td align="center" colspan="2"><input type="submit" name="commit" value="Login" class="button_blue_submit" style="width:200px;"></td>
+   
+  </tr>
+</table>
+</form>
