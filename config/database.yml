@@ -6,15 +6,15 @@ default: &default
   host: localhost    
 development:
   <<: *default
-  database: tn_voting
+  database: tnpartycomparison_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: tn_voting_test
+  database: tnpartycomparison_test
 
 production:
   <<: *default
-  database: tn_voting_production
+  database: tnpartycomparison_production
