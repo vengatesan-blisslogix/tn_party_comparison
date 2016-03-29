@@ -6,9 +6,7 @@ default: &default
   pool: 5
   timeout: 5000
   host: localhost
-  username: root
-  password: password
-  
+  username: user  
 development:
   <<: *default
   database: tn_voting
