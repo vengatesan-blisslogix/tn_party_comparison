@@ -3,8 +3,7 @@
 #
 default: &default
   adapter: postgresql
-  host: localhost
-  username: user   
+  host: localhost    
 development:
   <<: *default
   database: tn_voting
